@@ -21,7 +21,7 @@ int main( int argc, char** argv )
 	}
 
 	sock = socket(PF_INET, SOCK_STREAM, 0);
-	if(sock != -1)
+	if(sock == -1)
 	{
 		printf("socket open error\n");
 		return -1;
@@ -36,6 +36,11 @@ int main( int argc, char** argv )
 		printf("connect error\n");
 		return -1;
 	}
+
+	strcpy(message, "Hello world");
+	
+	str_len = write(sock, message, strlen(message));
+	printf("write data len = %d\n", str_len);
 
 	str_len = read(sock, message, sizeof(message)-1 );
 	if( str_len <= 0 )
